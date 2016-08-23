@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import java.util.ArrayList;
 
 public class MyDBHandler extends SQLiteOpenHelper {
   private static final Object mLock = new Object();
@@ -69,6 +70,25 @@ public class MyDBHandler extends SQLiteOpenHelper {
     return cursor;
   }
 
+  public ArrayList<String> getAllStockSymbols() {
+    SQLiteDatabase db = getReadableDatabase();
+    Cursor cursor = db.query(TABLE_STOCKS, new String[]{COLUMN_STOCK_SYMBOL}, null, null, null, null, null);
+    ArrayList<String> symbols = null;
+
+    if (cursor.moveToFirst()) {
+      symbols = new ArrayList<>();
+
+      while (!cursor.isAfterLast()) {
+        symbols.add(cursor.getString(cursor.getColumnIndex(COLUMN_STOCK_SYMBOL)));
+        cursor.moveToNext();
+      }
+    }
+
+    db.close();
+    return symbols;
+  }
+
+
   public Cursor getStocks(String selection) {
     String[] projection = {COLUMN_ID,COLUMN_PRICE,COLUMN_STOCK_SYMBOL,COLUMN_STOCKNAME,COLUMN_EXCHANGE,COLUMN_QUANTITY};
 
@@ -77,6 +97,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     return cursor;
   }
+
+
 
   public int deleteStockById(String id) {
     SQLiteDatabase db = getWritableDatabase();
@@ -96,6 +118,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
               selection,
               selectionArgs);
 
+      db.close();
       return rowsUpdated;
     }
   }

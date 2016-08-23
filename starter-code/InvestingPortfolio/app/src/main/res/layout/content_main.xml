@@ -12,6 +12,14 @@
     tools:context="drewmahrt.generalassemb.ly.investingportfolio.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:id="@+id/new_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@android:color/black"/>
+
+
     <ListView
         android:id="@+id/portfolio_list"
         android:layout_width="match_parent"

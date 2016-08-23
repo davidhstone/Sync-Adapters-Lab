@@ -13,7 +13,7 @@ import android.util.Log;
 public class MyContentProvider extends ContentProvider {
   private static final String TAG = "MyContentProvider";
   private MyDBHandler myDB;
-  private static final String AUTHORITY = StockPortfolioContract.AUTHORITY;
+  public static final String AUTHORITY = StockPortfolioContract.AUTHORITY;
   private static final String STOCKS_TABLE = StockPortfolioContract.Stocks.TABLE_STOCKS;
   public static final Uri CONTENT_URI = StockPortfolioContract.Stocks.CONTENT_URI;
 
